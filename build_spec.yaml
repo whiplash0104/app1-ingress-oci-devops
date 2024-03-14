@@ -1,16 +1,29 @@
 version: 0.1
 component: build
 timeoutInSeconds: 6000
-runAs: root
 shell: bash      
 steps:
   - type: Command
-    timeoutInSeconds: 1200
-    name: "Build container image"
+    name: "Compila Aplicacion"
+    timeoutInSeconds: 4000
     command: |
-      cd ${OCI_WORKSPACE_DIR}/Docker
-      docker build -t ingressappokedev:v1.0  .
+      echo "Compilacion con maven"
+      
+  - type: Command
+    name: "Pruebas Codigo"
+    timeoutInSeconds: 4000
+    command: |
+      echo "Pruebas Codigo"
+      
+  - type: Command
+    name: "Crear Imagen"
+    timeoutInSeconds: 4000
+    command: |
+      echo "Creando Imagen"
+      cd Docker
+      docker build -t testdevops  .
+      
 outputArtifacts:
- - name: myapp-image
-  type: DOCKER_IMAGE
-  location: ingressappokedev:v1.0
+  - name: output-image
+    type: DOCKER_IMAGE
+    location: testdevops
